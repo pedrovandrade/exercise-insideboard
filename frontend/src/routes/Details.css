@@ -1,0 +1,14 @@
+.card-details {
+  background-color: #eef;
+  display: flex;
+}
+
+.card-details img {
+  max-height: 300px;
+  margin: 10px;
+}
+
+.card-topic {
+  color: #555;
+  font-weight: bold;
+}

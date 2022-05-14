@@ -1,0 +1,17 @@
+.card-list {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.card-container {
+  background-color: #eef;
+  margin: 20px 10px;
+  display: flex;
+  /*width: 40%;*/
+  width: calc(50% - 20px);
+}
+
+.card-container img {
+  max-height: 200px;
+  margin: 10px;
+}

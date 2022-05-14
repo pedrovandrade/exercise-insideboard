@@ -1,0 +1,8 @@
+.filter-panel {
+  display: flex;
+  flex-direction: column;
+}
+
+.filter-panel label {
+  margin: 10px;
+}
