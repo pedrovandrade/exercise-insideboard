@@ -5,8 +5,8 @@ export default function Layout(props) {
     <html>
       <head>
         <meta charSet="utf-8" />
-        <link rel='icon' href='images/icon.png' />
-        <link rel='stylesheet' href='style/master.css' />
+        <link rel='icon' href='/images/icon.png' />
+        <link rel='stylesheet' href='/style/master.css' />
         <title>{props.title}</title>
       </head>
       <body>
