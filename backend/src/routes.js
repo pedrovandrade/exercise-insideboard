@@ -15,11 +15,9 @@ const corsOptions = {
   optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
 }
 
-// Router for getting the json data. It can be a filtered data according to the
-// URL query.
+// Router for getting the json data.
 apiRouter.route('/data').get(cors(corsOptions), (req, res) => {
-  const query = req.query.uuid ? req.query : {};
-  Player.find(query).then((playersdb) => {
+  Player.find().then((playersdb) => {
     res.send(playersdb);
   }).catch((error) => {
     res.status(500).send(error);

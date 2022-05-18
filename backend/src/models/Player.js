@@ -22,7 +22,7 @@ const PlayerSchema = new mongoose.Schema({
     required: true,
   },
   previousClubs: {
-    type: String,
+    type: [String],
     required: true,
   },
   picture: {

@@ -3,6 +3,14 @@ import { Link, useParams } from 'react-router-dom';
 import axios from 'axios';
 import style from './Details.css';
 
+/**
+ * The individual player's details page template. It selects the player through
+ * the URL end (corresponding to the player's uuid) and shows all his
+ * information as well as his picture.
+ * @param       {object} props - Input properties object:
+ * @param       {string} props.apiUrl - The backend API base URL.
+ * @constructor
+ */
 export default function Details(props) {
   const [player, setPlayer] = useState({});
   const urlParams = useParams();
