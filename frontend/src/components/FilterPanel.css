@@ -6,3 +6,8 @@
 .filter-panel label {
   margin: 10px;
 }
+
+.input-error {
+  color: red;
+  font-size: 13px;
+}

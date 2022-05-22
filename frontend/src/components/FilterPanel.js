@@ -1,11 +1,12 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { filterPlayers } from 'app/features/playerListSlice';
 import {
   writeName,
   writeCurrentClub,
   writePreviousClub,
   writePosition,
-  writeBirthDate
+  writeBirthDate,
 } from '../app/features/filterSlice';
 import style from './FilterPanel.css';
 
@@ -18,7 +19,7 @@ export default function FilterPanel() {
   /** **** Redux state variables **** */
   const name = useSelector((state) => state.filter.name);
   const currentClub = useSelector((state) => state.filter.currentClub);
-  const previousClubs = useSelector((state) => state.filter.previousClubs);
+  const previousClubs = useSelector((state) => state.filter.previousClub);
   const position = useSelector((state) => state.filter.position);
   const birthDate = useSelector((state) => state.filter.birthDate);
 
@@ -44,6 +45,27 @@ export default function FilterPanel() {
   function handleBirthDateSelection(event) {
     dispatch(writeBirthDate(event.target.value));
   }
+
+  // Events for filtering the players according to their information fields
+  useEffect(() => {
+    dispatch(filterPlayers({ field: 'firstName', value: name }));
+  }, [name]);
+
+  useEffect(() => {
+    dispatch(filterPlayers({ field: 'club', value: currentClub }));
+  }, [currentClub]);
+
+  useEffect(() => {
+    dispatch(filterPlayers({ field: 'previousClubs', value: previousClubs }));
+  }, [previousClubs]);
+
+  useEffect(() => {
+    dispatch(filterPlayers({ field: 'position', value: position }));
+  }, [position]);
+
+  useEffect(() => {
+    dispatch(filterPlayers({ field: 'birth', value: birthDate }));
+  }, [birthDate]);
 
   return (
     <form>

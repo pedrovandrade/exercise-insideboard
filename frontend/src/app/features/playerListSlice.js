@@ -20,11 +20,13 @@ export const playerListSlice = createSlice({
     filterPlayers: (state, action) => {
       if (!(action.payload instanceof Object)) return;
       state.players = state.players.map((player) => {
+        // Lower-case payload value to make the filter case-insensitive
+        const lowerCaseValue = action.payload.value.toLowerCase();
         const { field } = action.payload;
         // As "previousClubs" is an array, we must seek inside of it
         if (field === 'previousClubs') {
           const listOfCandidates = player.previousClubs.filter((club) => {
-            return club.includes(action.payload.value);
+            return club.toLowerCase().includes(lowerCaseValue);
           });
           return {
             ...player,
@@ -37,14 +39,14 @@ export const playerListSlice = createSlice({
           return {
             ...player,
             visible: (
-              player.firstName.includes(action.payload.value)
-              || player.lastName.includes(action.payload.value)
+              player.firstName.toLowerCase().includes(lowerCaseValue)
+              || player.lastName.toLowerCase().includes(lowerCaseValue)
             )
           };
         }
         return {
           ...player,
-          visible: player[field].includes(action.payload.value)
+          visible: player[field].toLowerCase().includes(lowerCaseValue)
         };
       });
     },
