@@ -1,5 +1,9 @@
 import mongoose from 'mongoose';
 
+/**
+ * The mongoose's model schema constructor contaning all the player's card info
+ * @type {mongoose}
+ */
 const PlayerSchema = new mongoose.Schema({
   firstName: {
     type: String,

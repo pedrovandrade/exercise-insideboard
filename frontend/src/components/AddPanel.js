@@ -1,8 +1,6 @@
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import axios from 'axios';
-// import DatePicker from 'react-widgets/DatePicker';
-// import 'react-widgets/styles.css';
 import { setPlayers } from 'app/features/playerListSlice';
 import {
   writeFirstName,
@@ -93,6 +91,7 @@ export default function AddPanel(props) {
     dispatch(writePreviousClubs(''));
   }
 
+  // When the user select a picture to send to the backend, update its state
   function handlePictureSelection(event) {
     setPictureFile(event.target.files[0]);
     dispatch(setPictureSelected(true));
@@ -114,10 +113,14 @@ export default function AddPanel(props) {
     }
   }
 
+  /**
+   * Send the selected picture to the backend via an asynchronous POST request
+   * @param  {string} newFileName - The picture file new name for the backend
+   * @return {Promise} axios request promise
+   */
   function sendPicture(newFileName) {
     const formData = new FormData();
     formData.append('image', pictureFile, newFileName);
-    formData.append('text', 'Test');
     return axios.post(`${props.apiUrl}/api/picture`, formData, {
       headers: {
         'Content-Type': 'multipart/form-data'
@@ -126,10 +129,11 @@ export default function AddPanel(props) {
   }
 
   /**
-   * Validate the data to be sent to the server and, in case it's good, send it
-   * @return None
+   * Before sending the data to the server, check every field to see if it's in
+   * a correct manner
+   * @return {boolean} Status to say if the data is ready to be sent
    */
-  function sendData() {
+  function sanityCheck() {
     let readyToSend = true;
     // Temporary status object to update the hiddenWarning state
     const hiddenWarningStatus = {
@@ -179,6 +183,16 @@ export default function AddPanel(props) {
 
     setHiddenWarning({ ...hiddenWarningStatus });
 
+    return readyToSend;
+  }
+
+  /**
+   * Validate the data to be sent to the server and, in case it's good, send it
+   * @return None
+   */
+  function sendData() {
+    const readyToSend = sanityCheck();
+
     if (readyToSend) {
       setFormDisabled(true);
       let newUuid = generateUUID();
@@ -201,7 +215,7 @@ export default function AddPanel(props) {
         birth: birthDate,
         previousClubs,
         picture: newFileName,
-        uuid: newUuid
+        uuid: newUuid,
       };
       axios.post(`${props.apiUrl}/api/data`, jsonPayload).then((response) => {
         if (response.status === 200) {
