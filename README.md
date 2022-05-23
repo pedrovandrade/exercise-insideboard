@@ -4,7 +4,7 @@ Repo for the development of the Insideboard selection process exercise
 ## Overview and prerequisites
 This is a web application linked to a local MongoDB database, so such a database must be present on the user's machine. To see the application working, it's recommended that the database be populated beforehand. To do so, first activate the database. Next, open a terminal on the project's backend folder and enter:
 ```
-npm run mongodb-init
+npm run dbinit
 ```
 
 ## Start script
