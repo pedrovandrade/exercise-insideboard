@@ -21,7 +21,7 @@ import style from './FilterPanel.css';
  * player.
  * @constructor
  */
-export default function AddPanel(props) {
+export default function AddPanel() {
   /** **** Redux state variables **** */
   const firstName = useSelector((state) => state.addPlayer.firstName);
   const lastName = useSelector((state) => state.addPlayer.lastName);
@@ -32,6 +32,7 @@ export default function AddPanel(props) {
   const birthDate = useSelector((state) => state.addPlayer.birthDate);
   const pictureSelected = useSelector((state) => state.addPlayer.pictureSelected);
   const players = useSelector((state) => state.display.players);
+  const apiUrl = useSelector((state) => state.network.apiUrl);
 
   const dispatch = useDispatch();
 
@@ -121,7 +122,7 @@ export default function AddPanel(props) {
   function sendPicture(newFileName) {
     const formData = new FormData();
     formData.append('image', pictureFile, newFileName);
-    return axios.post(`${props.apiUrl}/api/picture`, formData, {
+    return axios.post(`${apiUrl}/api/picture`, formData, {
       headers: {
         'Content-Type': 'multipart/form-data'
       }
@@ -217,7 +218,7 @@ export default function AddPanel(props) {
         picture: newFileName,
         uuid: newUuid,
       };
-      axios.post(`${props.apiUrl}/api/data`, jsonPayload).then((response) => {
+      axios.post(`${apiUrl}/api/data`, jsonPayload).then((response) => {
         if (response.status === 200) {
           return sendPicture(newFileName);
         }
@@ -230,7 +231,7 @@ export default function AddPanel(props) {
           setPictureFile(null);
           dispatch(resetData());
           setFormDisabled(false);
-          return axios.get(`${props.apiUrl}/api/data`, { responseType: 'json' });
+          return axios.get(`${apiUrl}/api/data`, { responseType: 'json' });
         }
         return new Promise((resolve, reject) => {
           reject(new Error('Error on picture upload!'));

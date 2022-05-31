@@ -1,0 +1,14 @@
+.edit-icon {
+  height: 20px;
+  cursor: pointer;
+  margin-left: 20px;
+}
+
+.edit-icon:hover:active {
+  background-color: #dde;
+}
+
+.details-topic-container {
+  display: flex;
+  align-items: center;
+}

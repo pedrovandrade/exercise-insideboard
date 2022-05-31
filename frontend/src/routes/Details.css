@@ -1,11 +1,12 @@
 .card-details {
   background-color: #eef;
   display: flex;
+  padding: 10px;
 }
 
-.card-details img {
+.card-details-photo {
   max-height: 300px;
-  margin: 10px;
+  margin-right: 20px;
 }
 
 .card-topic {

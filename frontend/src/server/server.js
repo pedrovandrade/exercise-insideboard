@@ -30,11 +30,4 @@ server.get('*', (req, res) => {
   });
 });
 
-// server.get('*', (req, res) => {
-//   console.log('res.render:', res.render);
-//   res.render('index', {
-//     title: 'Insideboard exercise',
-//   });
-// });
-
 server.listen(port, () => console.log(`Server running on port ${port}`));

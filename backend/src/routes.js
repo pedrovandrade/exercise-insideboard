@@ -51,6 +51,30 @@ apiRouter.route('/data').post(cors(), (req, res) => {
   });
 });
 
+// Router to update the player's information to the database
+apiRouter.route('/update').post(cors(), (req, res) => {
+  console.log('req.body:', req.body);
+  // const value = req.body.attribute === 'previousClubs'
+  //   ? []
+  //   : req.body.value;
+  Player.findOne({ uuid: req.body.uuid }).then((doc) => {
+    console.log('doc:', doc);
+    if (req.body.attribute === 'previousClubs') {
+      doc.previousClubs[req.body.index] = req.body.value;
+    } else {
+      doc[req.body.attribute] = req.body.value;
+    }
+    doc.save();
+  // })
+  // Player.updateOne({ uuid: req.body.uuid }, {
+  //   [req.body.attribute]: req.body.value,
+  }).then(() => {
+    res.status(200).send('Player data successfully updated!');
+    // res.send(req.body);
+    res.end();
+  });
+});
+
 // Router to upload the player's picture to the backend's "pictures" folder
 apiRouter.route('/picture').post(cors(), upload.single('image'), (req, res) => {
   res.status(200).send('New player picture successfully uploaded!');
